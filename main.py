@@ -38,17 +38,22 @@ class Student:
                 list_2.extend(var)
                 student.average_grade = sum(list_2) / len(list_2)
 
+    def __gt__(self, other):
+        grade_1 = self.average_grade
+        grade_2 = other.average_grade
+        if grade_1 > grade_2:
+            res = f'Лучший студент: \n{self.surname} {self.name} \nСредний бал за домашние задания: {self.average_grade}'
+        elif grade_1 < grade_2:
+            res = f'Лучший студент: \n{other.surname} {other.name} \nСредний бал за домашние задания: {other.average_grade}'
+        elif grade_1 == grade_2:
+            res = 'Студенты равны'
+        else:
+            res = 'Ошибка'
+        print(res)
+
     def comparison(self, student_one, student_two):
         if isinstance(student_one, Student) and isinstance(student_two, Student):
-            if student_one.average_grade > student_two.average_grade:
-                result = f'Лучший студент: \n{student_one.surname} {student_one.name} \nСредний бал за домашние задания: {student_one.average_grade}'
-            elif student_one.average_grade < student_two.average_grade:
-                result = f'Лучший студент: \n{student_two.surname} {student_two.name} \nСредний бал за домашние задания: {student_two.average_grade}'
-            elif student_one.average_grade == student_two.average_grade:
-                result = 'Студенты равны'
-            else:
-                result = 'Ошибка'
-        print(result)
+            student_one > student_two
 
     def __str__(self):
         res = f'Имя: {self.name} \nФамилия: {self.surname} \nСредняя оценка за домашние задания: {self.average_grade} \nКурсы в процессе изучения: {self.courses_in_progress} \nЗавершенные курсы:{self.finished_courses}'
@@ -64,17 +69,22 @@ class Lecture(Mentor):
                 list_2.extend(var)
                 lecture.average_rating = sum(list_2) / len(list_2)
 
+    def __gt__(self, other):
+        grade_1 = self.average_rating
+        grade_2 = other.average_rating
+        if grade_1 > grade_2:
+            res = f'Лучший лектор: \n{self.surname} {self.name} \nСредний бал за лекции: {self.average_rating}'
+        elif grade_1 < grade_2:
+            res = f'Лучший лектор: \n{other.surname} {other.name} \nСредний бал за лекции: {other.average_rating}'
+        elif grade_1 == grade_2:
+            res = 'Лекторы равны'
+        else:
+            res = 'Ошибка'
+        print(res)
+
     def comparison(self, lecturer_one, lecturer_two):
         if isinstance(lecturer_one, Lecture) and isinstance(lecturer_two, Lecture):
-            if lecturer_one.average_rating > lecturer_two.average_rating:
-                result = f'Лучший лектор: \n{lecturer_one.surname} {lecturer_one.name} \nСредний бал за лекции: {lecturer_one.average_rating}'
-            elif lecturer_one.average_rating < lecturer_two.average_rating:
-                result = f'Лучший лектор: \n{lecturer_two.surname} {lecturer_two.name} \nСредний бал за лекции: {lecturer_two.average_rating}'
-            elif lecturer_one.average_rating == lecturer_two.average_rating:
-                result = 'Лекторы равны'
-            else:
-                result = 'Ошибка'
-        print(result)
+            lecturer_one > lecturer_two
 
     def __str__(self):
         res = f'Имя: {self.name} \nФамилия: {self.surname} \nСредняя оценка за лекции: {self.average_rating}'
@@ -135,7 +145,6 @@ def avr_lc(course):
 
     return res
 
-
 Lecturer_1 = Lecture('Иван', 'Петров')
 Lecturer_1.courses_attached = ['Математика', 'Физика', 'Информатика']
 
@@ -157,22 +166,24 @@ student_3.courses_in_progress = ['Черчение', 'История', 'Архи
 student_1.rate_lecture(Lecturer_1, 'Информатика', 5)
 student_2.rate_lecture(Lecturer_1, 'Информатика', 4)
 student_1.rate_lecture(Lecturer_1, 'Математика', 5)
-student_2.rate_lecture(Lecturer_2, 'Наука', 1)
-student_1.rate_lecture(Lecturer_2, 'География', 4)
+student_2.rate_lecture(Lecturer_2, 'Наука', 5)
+student_1.rate_lecture(Lecturer_2, 'География', 5)
 
 rev_1.rate_hw(student_1, 'Математика', 5)
-rev_1.rate_hw(student_1, 'Информатика', 4)
-rev_1.rate_hw(student_1, 'География', 2)
+rev_1.rate_hw(student_1, 'Информатика', 5)
+rev_1.rate_hw(student_1, 'География', 3)
 
 rev_1.rate_hw(student_2, 'История', 5)
 rev_1.rate_hw(student_2, 'Информатика', 5)
-rev_1.rate_hw(student_2, 'Наука', 2)
+rev_1.rate_hw(student_2, 'Наука', 5)
 
 rev_1.rate_hw(student_3, 'История', 2)
 rev_1.rate_hw(student_3, 'Информатика', 3)
 rev_1.rate_hw(student_3, 'Наука', 5)
 rev_1.rate_hw(student_3, 'Архитектура', 4)
 rev_1.rate_hw(student_3, 'Черчение', 3)
+
+# Команды для проверки:
 
 # print(rev_1)
 # print(Lecturer_1)
@@ -193,3 +204,4 @@ rev_1.rate_hw(student_3, 'Черчение', 3)
 # avr_lc('История')
 # avr_lc('Черчение')
 # avr_lc('Архитектура')
+#
